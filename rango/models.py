@@ -7,7 +7,6 @@ class Category(models.Model):
     likes = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
 
-
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Category, self).save(*args,**kwargs)
