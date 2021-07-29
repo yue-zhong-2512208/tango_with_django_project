@@ -127,3 +127,9 @@ def user_login(request):
 
     else:
         return render(request, 'rango/login.html')
+
+def some_view(request):
+    if not request.user.is_authenticated():
+        return HttpResponse("You are logged in.")
+    else:
+        return HttpResponse("You are not logged in.")
