@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -22,7 +23,6 @@ def index(request):
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
     return render(request, 'rango/index.html', context=context_dict)
-
 
 def show_category(request, category_name_slug):
     context_dict = {}
@@ -108,7 +108,6 @@ def register(request):
                                 'profile_form': profile_form, 
                                 'registered': registered})
 
-
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -133,3 +132,14 @@ def some_view(request):
         return HttpResponse("You are logged in.")
     else:
         return HttpResponse("You are not logged in.")
+
+
+@login_required
+def restricted(request):
+    return HttpResponse("Since you're logged in, you can see this text!")
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('rango:index'))
