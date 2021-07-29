@@ -12,8 +12,9 @@ def index(request):
     return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):
-    return render(request, 'rango/about.html')
-
+    print(request.method)
+    print(request.user)
+    return render(request, 'rango/about.html', {})
 
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5] #without '-' will from the most to the least
