@@ -36,7 +36,7 @@ def show_category(request, category_name_slug):
         context_dict['pages'] = None
     return render(request, 'rango/category.html', context=context_dict)
 
-
+@login_required
 def add_category(request):
     form = CategoryForm()
     
@@ -49,6 +49,7 @@ def add_category(request):
             print(form.errors)
     return render(request, 'rango/add_category.html', {'form': form})
 
+@login_required
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -127,11 +128,6 @@ def user_login(request):
     else:
         return render(request, 'rango/login.html')
 
-def some_view(request):
-    if not request.user.is_authenticated():
-        return HttpResponse("You are logged in.")
-    else:
-        return HttpResponse("You are not logged in.")
 
 
 @login_required
