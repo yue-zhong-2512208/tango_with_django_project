@@ -9,9 +9,10 @@ from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 
 
 def about(request):
-    print(request.method)
-    print(request.user)
-    return render(request, 'rango/about.html', {})
+    context_dict = {}
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
+    return render(request, 'rango/about.html', context=context_dict)
 
 
 def index(request):
@@ -21,6 +22,7 @@ def index(request):
     context_dict = {}
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] = category_list
+    context_dict['pages'] = page_list
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
     response = render(request, 'rango/index.html', context=context_dict)
