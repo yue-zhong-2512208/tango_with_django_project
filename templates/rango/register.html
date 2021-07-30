@@ -10,7 +10,7 @@
         {% if registered %}
             Rango says: <strong>thank you for registering!</strong>
         {% else %}
-            Rango says: <strong>registered here!</strong>
+            Rango says: <strong>register here!</strong>
             <form id="user_form" method="post" action="{% url 'rango:register' %}"
                 enctype="multipart/form-data">
                 {% csrf_token %}
